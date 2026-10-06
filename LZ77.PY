@@ -136,6 +136,21 @@ for t in tags:
     if counter > maxLengthBits:
         maxLengthBits = counter
 
+header = ""
+
+distanceBits = toBinary(maxDistanceBits)
+lengthBits = toBinary(maxLengthBits)
+
+for i in range(8 - len(distanceBits)):
+    header += "0"
+
+header += distanceBits
+
+for i in range(8 - len(lengthBits)):
+    header += "0"
+
+header += lengthBits
+
 
 for t in tags:
 
@@ -160,6 +175,8 @@ for t in tags:
 
     output += charToBinary(t.next_char)
 
+
+output = header + output
 
 with open("output.txt", "w") as writer:
     writer.write(output)
